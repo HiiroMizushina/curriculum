@@ -1,0 +1,65 @@
+--問1--
+【答え】
+ルートブリッジ：switch3
+
+【解説】
+ブリッジプライオリティが１番低いのはswitch3である。
+
+
+
+
+--問2--
+【答え】
+ルートポート：switch1 F0/2,switch2 F0/1,switch4 E0/2
+指定ポート：switch1 F0/1,switch3 E0/1,switch3 E0/2,switch4 E0/1
+ブロッキングポート：switch2 F0/2
+
+
+
+【解説】
+〈ルートポートの選出〉
+接続ポートにおける通信速度は低い方に設定される。
+したがって、それぞれのルートパスコストは以下の通りである。
+switch1～switch2：19
+switch2～switch4：100
+switch4～switch3：100
+switch3～switch1：100
+
+各スイッチからルートブリッジまでの距離の和は以下の通りである。
+
+・switch1について
+  switch1～switch3＝100
+  switch1～switch2～switch4～switch3＝219
+　よって、switch1～switch3の方が和が小さいので、
+　switch1 F0/2がルートポートである。
+
+・switch2について
+　switch2～switch1～switch3＝119
+　switch2～switch4～switch3＝200
+　よって、switch2～switch1～switch3の方が和が小さいので、
+　switch2 F0/1がルートポートである。
+
+・switch4について
+　switch4～switch3＝100
+　switch4～switch2～switch1～switch3＝219
+　よって、switch4～switch3の方が和が小さいので、
+　switch4 E0/2がルートポートである。
+
+
+
+〈指定ポートの選出〉
+ルートブリッジは全て指定ポートになるので、
+switch3 E0/1とswitch3 E0/2は指定ポートである。
+
+また、ルートポートの向かいは指定ポートになるので、
+switch1 F0/1は指定ポートである。
+
+さらに、対向ポートに何も役割が振られていない場合は
+ブリッジプライオリティが小さい方が指定ポートになるので、
+switch4 E0/1は指定ポートである。
+
+
+
+〈ブロッキングポートの選出〉
+最後に余っているポートがブロッキングポートになる。
+したがって、switch2 F0/2がブロッキングポートである。
